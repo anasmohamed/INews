@@ -10,9 +10,12 @@ import Foundation
 class NewsModel: Codable {
     var authorName: String?
     var title: String?
-    
+    var image: String?
+    var source : String?
     enum CodingKeys: String, CodingKey {
         case authorName = "author"
         case title = "title"
+        case image = "urlToImage"
+        case source = ""
     }
 }

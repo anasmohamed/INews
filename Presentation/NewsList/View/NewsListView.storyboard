@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="HfM-VP-f26">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--News List View Controller-->
+        <scene sceneID="unl-ma-aNf">
+            <objects>
+                <viewController id="HfM-VP-f26" customClass="NewsListViewController" customModule="INews" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YEU-hS-4Gu">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Vmo-Cn-B5c">
+                                <rect key="frame" x="0.0" y="44" width="414" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Isz-L8-jpG">
+                                <rect key="frame" x="0.0" y="100" width="414" height="796"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Tqj-EI-ExT"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Isz-L8-jpG" firstAttribute="top" secondItem="Vmo-Cn-B5c" secondAttribute="bottom" id="7en-nW-HJy"/>
+                            <constraint firstItem="Isz-L8-jpG" firstAttribute="leading" secondItem="YEU-hS-4Gu" secondAttribute="leading" id="Nqa-ul-AZn"/>
+                            <constraint firstItem="Tqj-EI-ExT" firstAttribute="trailing" secondItem="Vmo-Cn-B5c" secondAttribute="trailing" id="dSf-dD-TVj"/>
+                            <constraint firstAttribute="bottom" secondItem="Isz-L8-jpG" secondAttribute="bottom" id="hbo-mC-Nzs"/>
+                            <constraint firstItem="Vmo-Cn-B5c" firstAttribute="top" secondItem="Tqj-EI-ExT" secondAttribute="top" id="mX5-OG-8EM"/>
+                            <constraint firstItem="Vmo-Cn-B5c" firstAttribute="leading" secondItem="YEU-hS-4Gu" secondAttribute="leading" id="syJ-8z-JjB"/>
+                            <constraint firstAttribute="trailing" secondItem="Isz-L8-jpG" secondAttribute="trailing" id="yWW-aV-vXe"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="newsListTableView" destination="Isz-L8-jpG" id="3Jv-p5-QvY"/>
+                        <outlet property="newsSearchBar" destination="Vmo-Cn-B5c" id="NIm-PD-WFg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="giv-6M-01N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="132" y="32"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
