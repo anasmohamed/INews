@@ -12,6 +12,8 @@ class NewsListViewController: UIViewController {
     @IBOutlet weak var newsSearchBar: UISearchBar!
     @IBOutlet weak var newsListTableView: UITableView!
     
+    var isSearching = false
+
     lazy var viewModel: NewsListViewModel = {
         return NewsListViewModel()
     }()
@@ -25,6 +27,7 @@ class NewsListViewController: UIViewController {
     func initView() {
         newsListTableView.delegate = self
         newsListTableView.dataSource = self
+        newsSearchBar.delegate = self
         setupTableView()
     }
     func initVM() {
@@ -41,3 +44,17 @@ class NewsListViewController: UIViewController {
     
     
 }
+extension NewsListViewController: UISearchBarDelegate {
+     
+     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.searchBy(searchText: searchText)
+         isSearching = true
+        newsListTableView.reloadData()
+     }
+     
+     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+         isSearching = false
+         searchBar.text = ""
+        newsListTableView.reloadData()
+     }
+ }

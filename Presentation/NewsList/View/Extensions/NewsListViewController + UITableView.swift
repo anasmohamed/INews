@@ -13,9 +13,14 @@ extension NewsListViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTableViewCell", for: indexPath) as? NewsTableViewCell else {
             fatalError("Cell not exists in storyboard")
         }
-        
-        let cellVM = viewModel.getCellViewModel( at: indexPath )
-        cell.newsListCellViewModel = cellVM
+        if isSearching{
+            let cellVM = viewModel.getSearchedCellViewModel( at: indexPath )
+            cell.newsListCellViewModel = cellVM
+        }else{
+            let cellVM = viewModel.getCellViewModel( at: indexPath )
+            cell.newsListCellViewModel = cellVM
+        }
+    
         
         return cell
     }
@@ -25,10 +30,14 @@ extension NewsListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
+        return 260
+    
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isSearching{
+            return viewModel.numberOfSearchedCells
+        }
         return viewModel.numberOfCells
     }
     
