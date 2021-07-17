@@ -20,7 +20,6 @@ extension NewsListViewController: UITableViewDelegate, UITableViewDataSource {
             let cellVM = viewModel.getCellViewModel( at: indexPath )
             cell.newsListCellViewModel = cellVM
         }
-    
         
         return cell
     }
@@ -30,10 +29,20 @@ extension NewsListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 260
-    
+        return 290
+        
     }
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let newsDetailsStoryboard = UIStoryboard.init(name:"NewsDetailsView" , bundle: nil)
+        let newsDetailsViewController = newsDetailsStoryboard.instantiateViewController(identifier: "NewsDetailsViewController") as! NewsDetailsViewController
+        viewModel.userPressed(at: indexPath, isSearching: isSearching)
+        newsDetailsViewController.newsDetails = viewModel.selectedNews
+        
+        self.navigationController?.pushViewController(newsDetailsViewController, animated: true)
+    }
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        return indexPath
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isSearching{
             return viewModel.numberOfSearchedCells
@@ -44,3 +53,4 @@ extension NewsListViewController: UITableViewDelegate, UITableViewDataSource {
     
     
 }
+

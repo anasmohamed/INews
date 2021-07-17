@@ -11,11 +11,25 @@ class NewsModel: Codable {
     var authorName: String?
     var title: String?
     var image: String?
-    var source : String?
+    var source : Source?
+    var content : String?
+    var date : String?
+    var description : String?
     enum CodingKeys: String, CodingKey {
         case authorName = "author"
         case title = "title"
         case image = "urlToImage"
-        case source = ""
+        case source = "source"
+        case content = "content"
+        case date = "publishedAt"
+        case description = "description"
+    }
+}
+
+struct Source: Codable {
+    var name : String?
+    
+    enum CodingKeys : String, CodingKey {
+        case name = "name"
     }
 }

@@ -58,3 +58,4 @@ extension NewsListViewController: UISearchBarDelegate {
         newsListTableView.reloadData()
      }
  }
+

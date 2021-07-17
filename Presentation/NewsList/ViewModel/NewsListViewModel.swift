@@ -9,7 +9,8 @@ import Foundation
 class NewsListViewModel {
     let newsAPIService: NewsAPIProtocol = NewsAPI()
     private var newsList: [NewsModel] = [NewsModel]()
-    
+    private var filterdNewsList: [NewsModel] = [NewsModel]()
+
     private var cellViewModels: [NewsListCellViewModel] = [NewsListCellViewModel]() {
         didSet {
             reloadTableView.value = true
@@ -20,6 +21,7 @@ class NewsListViewModel {
             reloadTableView.value = true
         }
     }
+    var selectedNews : NewsModel?
     var getNewsSuccess: Observable<[NewsModel]> = Observable([])
     var reloadTableView: Observable<Bool> = Observable(false)
     var getNewsError: Observable<String> = Observable("")
@@ -37,11 +39,12 @@ class NewsListViewModel {
         }
     }
     func searchBy(searchText:String)  {
+        self.filterdNewsList = newsList.filter({$0.title!.lowercased().prefix(searchText.count) == searchText.lowercased()})
         var newsListCellViewModels = [NewsListCellViewModel]()
-        for news in newsList {
+        for news in filterdNewsList {
             newsListCellViewModels.append( createCellViewModel(news: news) )
         }
-        self.searchedCellViewModels = newsListCellViewModels.filter({$0.titleText.lowercased().prefix(searchText.count) == searchText.lowercased()})
+        self.searchedCellViewModels = newsListCellViewModels
     }
     
     var numberOfCells: Int {
@@ -60,7 +63,7 @@ class NewsListViewModel {
     }
     
     func createCellViewModel( news: NewsModel ) -> NewsListCellViewModel {
-        return NewsListCellViewModel(titleText:news.title! , sourceText:news.source ?? ""  , imageUrl:news.image ?? "")
+        return NewsListCellViewModel(titleText:news.title! , sourceText:news.source?.name ?? ""  , imageUrl:news.image ?? "")
     }
 
     private func processFetchedNews( newsList: [NewsModel] ) {
@@ -72,3 +75,18 @@ class NewsListViewModel {
         self.cellViewModels = newsListCellViewModels
     }
 }
+extension NewsListViewModel {
+    func userPressed( at indexPath: IndexPath ,isSearching:Bool){
+        if isSearching{
+            let news = self.filterdNewsList[indexPath.row]
+            self.selectedNews = news
+        }else{
+            let news = self.newsList[indexPath.row]
+            self.selectedNews = news
+        }
+        
+        
+        }
+        
+    }
+
