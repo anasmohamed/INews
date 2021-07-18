@@ -1,6 +1,6 @@
 # INews
 
-This Task to get news from  News API https://newsapi.org/?ref=apilist.fun
+This App to get news from  News API https://newsapi.org/?ref=apilist.fun and show it and you can filter news
 </br>
 -Build using MVVM Pattern with observer class and generic 
 </br>
@@ -8,4 +8,4 @@ This Task to get news from  News API https://newsapi.org/?ref=apilist.fun
 </br>
 -Alamofire and sdwebimage pods
 </br>
--Autolayot, table view and navigation controller
+-Autolayot, search bar, table view and navigation controller
