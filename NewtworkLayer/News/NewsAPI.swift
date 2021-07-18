@@ -8,14 +8,14 @@
 import Foundation
 
 protocol NewsAPIProtocol {
-    func getNews(completion: @escaping (Result<BaseResponse<[NewsModel]>?, NSError>) -> Void)
+    func getNewsWith(page:Int,completion: @escaping (Result<BaseResponse<[NewsModel]>?, NSError>) -> Void)
 }
 
 
 class NewsAPI: BaseAPI<NewsNetworking>, NewsAPIProtocol {
         
-    func getNews(completion: @escaping (Result<BaseResponse<[NewsModel]>?, NSError>) -> Void) {
-        self.fetchData(target: .getNews, responseClass: BaseResponse<[NewsModel]>.self) { (result) in
+    func getNewsWith(page:Int,completion: @escaping (Result<BaseResponse<[NewsModel]>?, NSError>) -> Void) {
+        self.fetchData(target: .getNews(page: page) , responseClass: BaseResponse<[NewsModel]>.self) { (result) in
             completion(result)
         }
     }

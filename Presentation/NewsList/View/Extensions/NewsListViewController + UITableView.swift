@@ -40,16 +40,22 @@ extension NewsListViewController: UITableViewDelegate, UITableViewDataSource {
         
         self.navigationController?.pushViewController(newsDetailsViewController, animated: true)
     }
-    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        return indexPath
-    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isSearching{
             return viewModel.numberOfSearchedCells
         }
         return viewModel.numberOfCells
     }
-    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        guard scrollView == newsListTableView,
+              (scrollView.contentOffset.y + scrollView.frame.size.height) >= scrollView.contentSize.height, pageNumber < totalPages
+        else { return }
+        print("anasnew")
+        pageNumber = pageNumber + 1
+        viewModel.initFetchWith(pageNumber:pageNumber)
+        
+    }
     
     
 }

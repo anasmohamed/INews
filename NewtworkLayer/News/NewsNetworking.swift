@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 enum NewsNetworking {
-    case getNews
+    case getNews(page:Int)
 }
 
 extension NewsNetworking: TargetType {
@@ -22,8 +22,9 @@ extension NewsNetworking: TargetType {
     
     var path: String {
         switch self {
-        case .getNews:
-            return "&apiKey=b173854d2bc74779b744e6f05eeeb60d"
+        case .getNews(let page):
+            print(page)
+            return "&apiKey=b173854d2bc74779b744e6f05eeeb60d&page=\(page)"
      
         }
     }

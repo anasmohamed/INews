@@ -11,9 +11,11 @@ class NewsListViewController: UIViewController {
     
     @IBOutlet weak var newsSearchBar: UISearchBar!
     @IBOutlet weak var newsListTableView: UITableView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var isSearching = false
-
+    var pageNumber = 1
+    var totalPages = 5
     lazy var viewModel: NewsListViewModel = {
         return NewsListViewModel()
     }()
@@ -36,7 +38,30 @@ class NewsListViewController: UIViewController {
                 self.newsListTableView.reloadData()
             }
         }
-        viewModel.initFetch()
+        viewModel.getStatus.bind{ state in
+            switch state
+            {
+            
+            case .loading:
+                self.activityIndicator.startAnimating()
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.newsListTableView.alpha = 0.0
+                })
+                
+            case .populated:
+                self.activityIndicator.stopAnimating()
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.newsListTableView.alpha = 1.0
+                })
+            case .empty,.error:
+                self.activityIndicator.stopAnimating()
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.newsListTableView.alpha = 0.0
+                })
+            }
+            
+        }
+        viewModel.initFetchWith(pageNumber:pageNumber)
     }
     func setupTableView()  {
         newsListTableView.register(UINib(nibName: "NewsTableViewCell", bundle: nil), forCellReuseIdentifier: "NewsTableViewCell")
@@ -45,17 +70,17 @@ class NewsListViewController: UIViewController {
     
 }
 extension NewsListViewController: UISearchBarDelegate {
-     
-     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         viewModel.searchBy(searchText: searchText)
-         isSearching = true
+        isSearching = true
         newsListTableView.reloadData()
-     }
-     
-     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-         isSearching = false
-         searchBar.text = ""
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        isSearching = false
+        searchBar.text = ""
         newsListTableView.reloadData()
-     }
- }
+    }
+}
 

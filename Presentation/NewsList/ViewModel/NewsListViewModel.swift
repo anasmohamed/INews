@@ -10,6 +10,7 @@ class NewsListViewModel {
     let newsAPIService: NewsAPIProtocol = NewsAPI()
     private var newsList: [NewsModel] = [NewsModel]()
     private var filterdNewsList: [NewsModel] = [NewsModel]()
+    private var newsListCellViewModels = [NewsListCellViewModel]()
 
     private var cellViewModels: [NewsListCellViewModel] = [NewsListCellViewModel]() {
         didSet {
@@ -21,19 +22,25 @@ class NewsListViewModel {
             reloadTableView.value = true
         }
     }
+
+    
     var selectedNews : NewsModel?
     var getNewsSuccess: Observable<[NewsModel]> = Observable([])
     var reloadTableView: Observable<Bool> = Observable(false)
     var getNewsError: Observable<String> = Observable("")
+    var getStatus : Observable<State> = Observable(.empty)
     
-    
-    func initFetch() {
-        newsAPIService.getNews { (result) in
+    func initFetchWith(pageNumber: Int) {
+        self.getStatus.value = .loading
+
+        newsAPIService.getNewsWith(page:pageNumber) { (result) in
             switch result {
             case .success(let response):
                 let news = response?.data
                 self.processFetchedNews(newsList: news!)
+                self.getStatus.value = .populated
             case .failure(let error):
+                self.getStatus.value = .error
                 print(error.userInfo[NSLocalizedDescriptionKey] as? String ?? "")
             }
         }
@@ -67,14 +74,17 @@ class NewsListViewModel {
     }
 
     private func processFetchedNews( newsList: [NewsModel] ) {
+        
         self.newsList = newsList // Cache
-        var newsListCellViewModels = [NewsListCellViewModel]()
+        print(newsList.count)
         for news in newsList {
+            
             newsListCellViewModels.append( createCellViewModel(news: news) )
         }
         self.cellViewModels = newsListCellViewModels
     }
 }
+
 extension NewsListViewModel {
     func userPressed( at indexPath: IndexPath ,isSearching:Bool){
         if isSearching{
@@ -84,8 +94,6 @@ extension NewsListViewModel {
             let news = self.newsList[indexPath.row]
             self.selectedNews = news
         }
-        
-        
         }
         
     }
