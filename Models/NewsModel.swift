@@ -15,6 +15,7 @@ class NewsModel: Codable {
     var content : String?
     var date : String?
     var description : String?
+    var urlSource : String?
     enum CodingKeys: String, CodingKey {
         case authorName = "author"
         case title = "title"
@@ -23,6 +24,7 @@ class NewsModel: Codable {
         case content = "content"
         case date = "publishedAt"
         case description = "description"
+        case urlSource = "url"
     }
 }
 

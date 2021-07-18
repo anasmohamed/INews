@@ -10,6 +10,7 @@ import SDWebImage
 class NewsDetailsViewController: UITableViewController {
 
     
+    @IBOutlet weak var navigateToSourceBtn: UIButton!
     @IBOutlet weak var newsDetatilsDescriptionLbl: UILabel!
     @IBOutlet weak var newsDetailsContentLbl: UILabel!
     @IBOutlet weak var newsDetailsDateLbl: UILabel!
@@ -37,6 +38,9 @@ class NewsDetailsViewController: UITableViewController {
         newsDetailsAuthorLbl.text = "author : \(newsDetails!.authorName!)"
         newsDetailsContentLbl.text = newsDetails?.content
         newsDetatilsDescriptionLbl.text = newsDetails?.description
+        
+        navigateToSourceBtn.layer.cornerRadius = 8
+        
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = UITableView.automaticDimension
         
@@ -51,9 +55,14 @@ class NewsDetailsViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 5
+        return 6
     }
 
+    @IBAction func navigateToSourceBtnDidTapped(_ sender: Any) {
+        if let url = URL(string: (newsDetails?.urlSource)!) {
+            UIApplication.shared.open(url)
+        }
+    }
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)

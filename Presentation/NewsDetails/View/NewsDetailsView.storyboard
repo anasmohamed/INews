@@ -159,6 +159,35 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="72" id="yvX-6O-4Vx">
+                                        <rect key="frame" x="0.0" y="522" width="414" height="72"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yvX-6O-4Vx" id="OaH-iM-Vox">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="72"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ri-z8-YoZ">
+                                                    <rect key="frame" x="50" y="21" width="314" height="35"/>
+                                                    <color key="backgroundColor" systemColor="linkColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="yKp-lY-Qr9"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Navigate To The Source">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="navigateToSourceBtnDidTapped:" destination="hgF-v0-PPw" eventType="touchUpInside" id="sEi-4a-xCE"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="3Ri-z8-YoZ" firstAttribute="leading" secondItem="OaH-iM-Vox" secondAttribute="leadingMargin" constant="30" id="2fd-6K-u6x"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="3Ri-z8-YoZ" secondAttribute="trailing" constant="30" id="BRG-Bv-KD8"/>
+                                                <constraint firstItem="3Ri-z8-YoZ" firstAttribute="top" secondItem="OaH-iM-Vox" secondAttribute="topMargin" constant="10" id="IYh-Wf-Tpn"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="3Ri-z8-YoZ" secondAttribute="bottom" constant="10" id="S5C-UU-Smq"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -169,6 +198,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Details" id="uR4-pT-1vB"/>
                     <connections>
+                        <outlet property="navigateToSourceBtn" destination="3Ri-z8-YoZ" id="3fm-66-2r1"/>
                         <outlet property="newsDetailsAuthorLbl" destination="JRe-hV-pNp" id="TWJ-D1-eZt"/>
                         <outlet property="newsDetailsContentLbl" destination="fWG-6p-8H7" id="hmH-zw-0K8"/>
                         <outlet property="newsDetailsDateLbl" destination="CmY-zC-xfB" id="ghU-td-0Y5"/>
@@ -202,6 +232,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
